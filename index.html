@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ETNOSTATS-AR | Simulator Statistik</title>
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h1>📊 Simulator Statistik ETNOSTATS-AR</h1>
+
+<p class="subtitle">
+Media Pembelajaran Statistik Interaktif Berbasis AR
+</p>
+
+<div class="controls">
+
+<div class="control-box">
+
+<label>Metode Statistik</label>
+
+<select id="methodType">
+
+<option value="z">
+Uji Z
+</option>
+
+<option value="f">
+Uji F
+</option>
+
+<option value="corr">
+Korelasi
+</option>
+
+<option value="reg">
+Regresi
+</option>
+
+<option value="t">Uji t</option>
+</select>
+
+</div>
+
+<div class="control-box">
+
+<label>Jenis Uji</label>
+
+<select id="testType">
+
+<option value="right">
+Uji Satu Ekor Kanan
+</option>
+
+<option value="left">
+Uji Satu Ekor Kiri
+</option>
+
+<option value="two">
+Uji Dua Ekor
+</option>
+
+</select>
+
+</div>
+
+<div class="control-box">
+
+<label>Alpha</label>
+
+<select id="alphaSelect">
+
+<option value="1.645">
+0.05
+</option>
+
+<option value="2.326">
+0.01
+</option>
+
+</select>
+
+</div>
+
+<div class="control-box">
+
+<label>Mode Tampilan</label>
+
+<select id="viewMode">
+
+<option value="2d">
+Mode 2D
+</option>
+
+<option value="3d">
+Mode 3D
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+<div class="slider-area">
+
+<label id="sliderLabel">
+
+Nilai Z Hitung
+
+</label>
+
+<input
+type="range"
+id="zSlider"
+min="-4"
+max="4"
+step="0.05"
+value="0"
+>
+
+<span id="zValue">0</span>
+
+</div>
+
+<div class="info-box">
+
+<p>
+
+<strong id="hitungLabel">
+
+Z Hitung :
+
+</strong>
+
+<span id="zDisplay">0</span>
+
+</p>
+
+<p>
+
+<strong id="tabelLabel">
+
+Z Tabel :
+
+</strong>
+
+<span id="zTable">1.645</span>
+
+</p>
+
+</div>
+
+<div class="info-box">
+
+<p>
+
+<strong>Input Nilai :</strong>
+
+<input
+type="number"
+id="manualInput"
+step="0.05"
+value="0"
+>
+
+</p>
+
+<p>
+
+<strong>Output :</strong>
+
+<span id="decisionOutput">
+
+Menunggu Input
+
+</span>
+
+</p>
+
+</div>
+
+<div id="chart"></div>
+
+<h2 id="result"></h2>
+
+<div style="text-align:center; margin-top:30px;">
+
+<a href="ar.html">
+
+<button class="culture-btn"
+style="margin-bottom:15px;">
+
+📱 Mulai AR ETNOSTATS
+
+</button>
+
+</a>
+
+<br>
+
+<a href="budaya.html">
+
+<button class="culture-btn">
+
+🌎 Eksplorasi Budaya Kalimantan
+
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

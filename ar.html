@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ETNOSTATS AR</title>
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<script type="importmap">
+{
+  "imports": {
+    "three":
+    "https://unpkg.com/three@0.160.0/build/three.module.js",
+
+    "three/addons/":
+    "https://unpkg.com/three@0.160.0/examples/jsm/",
+
+    "mindar-image-three":
+    "https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-three.prod.js"
+  }
+}
+</script>
+
+<style>
+  #backBtn{
+  position:fixed;
+  top:15px;
+  left:15px;
+
+  z-index:9999;
+
+  background:#1e293b;
+  color:white;
+
+  text-decoration:none;
+
+  padding:10px 18px;
+
+  border-radius:10px;
+
+  font-family:Arial;
+
+  font-weight:bold;
+}
+body{
+  margin:0;
+  overflow:hidden;
+}
+
+#container{
+  width:100vw;
+  height:100vh;
+  position:relative;
+}
+</style>
+
+</head>
+
+<body>
+
+<a href="index.html" id="backBtn">
+🏠 Beranda
+</a>
+
+<div id="container"></div>
+
+<script type="module">
+
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { MindARThree } from 'mindar-image-three';
+
+const mindarThree =
+new MindARThree({
+
+  container:
+  document.querySelector("#container"),
+
+  imageTargetSrc:
+  "./ar/targets.mind"
+
+});
+
+const {
+  renderer,
+  scene,
+  camera
+} = mindarThree;
+
+const light =
+new THREE.HemisphereLight(
+  0xffffff,
+  0xbbbbff,
+  1
+);
+
+scene.add(light);
+
+const anchor0 =
+mindarThree.addAnchor(0);
+const anchor1 =
+mindarThree.addAnchor(1);
+
+const anchor2 =
+mindarThree.addAnchor(2);
+
+const anchor3 =
+mindarThree.addAnchor(3);
+
+const anchor4 =
+mindarThree.addAnchor(4);
+
+const anchor5 =
+mindarThree.addAnchor(5);
+
+const anchor6 =
+mindarThree.addAnchor(6);
+
+
+const textureLoader = new THREE.TextureLoader();
+
+const textureBidai =
+textureLoader.load(
+  "./images/budaya/bidai.jpg"
+);
+
+const planeBidai =
+new THREE.Mesh(
+
+  new THREE.PlaneGeometry(
+    1.8,
+    0.7
+  ),
+
+  new THREE.MeshBasicMaterial({
+    map: textureBidai
+  })
+
+);
+
+planeBidai.position.y =
+-0.4;
+const canvasBidai =
+document.createElement("canvas");
+
+canvasBidai.width = 1024;
+canvasBidai.height = 400;
+
+const ctxBidai =
+canvasBidai.getContext("2d");
+
+ctxBidai.fillStyle = "#1e293b";
+ctxBidai.fillRect(0,0,1024,256);
+
+ctxBidai.fillStyle = "#ffffff";
+ctxBidai.font = "bold 80px Arial";
+
+ctxBidai.fillText(
+  "TIKAR BIDAI DAYAK",
+  40,
+  120
+);
+
+ctxBidai.font =
+"50px Arial";
+
+ctxBidai.fillText(
+  "Varians & Standar Deviasi",
+  40,
+  210
+);
+ctxBidai.fillStyle = "#60a5fa";
+
+ctxBidai.font =
+"bold 40px Arial";
+
+ctxBidai.fillText(
+  "ETNOSTATS AR",
+  40,
+  50
+);
+
+ctxBidai.fillStyle =
+"#ffffff";
+
+ctxBidai.font =
+"35px Arial";
+
+ctxBidai.fillText(
+  "Panjang dan lebar digunakan",
+  40,
+  280
+);
+
+ctxBidai.fillText(
+  "sebagai data variabilitas",
+  40,
+  330
+);
+
+const textTextureBidai =
+new THREE.CanvasTexture(
+  canvasBidai
+);
+
+const textPlaneBidai =
+new THREE.Mesh(
+
+  new THREE.PlaneGeometry(
+    1.8,
+  0.7
+  ),
+
+  new THREE.MeshBasicMaterial({
+    map:textTextureBidai,
+    transparent:true
+  })
+
+);
+
+planeBidai.position.x = 0;
+planeBidai.position.y = -0.4;
+planeBidai.position.z = 0;
+
+anchor0.group.add(
+  planeBidai
+);
+
+textPlaneBidai.position.x = 0;
+textPlaneBidai.position.y = 0.8;
+textPlaneBidai.position.z = 0;
+
+anchor0.group.add(
+  textPlaneBidai
+);
+const textureBingke =
+textureLoader.load(
+  "./images/budaya/bingke.jpg"
+);
+
+const planeBingke =
+new THREE.Mesh(
+
+  new THREE.PlaneGeometry(
+    1.8,
+    0.7
+  ),
+
+  new THREE.MeshBasicMaterial({
+    map: textureBingke
+  })
+
+);
+planeBingke.position.y =
+-0.4;
+
+anchor1.group.add(
+  planeBingke
+);
+
+const canvasBingke =
+document.createElement("canvas");
+
+canvasBingke.width = 1024;
+canvasBingke.height = 400;
+
+const ctxBingke =
+canvasBingke.getContext("2d");
+
+ctxBingke.fillStyle = "#1e293b";
+ctxBingke.fillRect(0,0,1024,256);
+
+ctxBingke.fillStyle = "#60a5fa";
+
+ctxBingke.font =
+"bold 40px Arial";
+
+ctxBingke.fillText(
+  "ETNOSTATS AR",
+  40,
+  50
+);
+
+ctxBingke.fillStyle =
+"#ffffff";
+
+ctxBingke.font =
+"bold 80px Arial";
+
+ctxBingke.fillText(
+  "BINGKE KHAS KALBAR",
+  40,
+  120
+);
+
+ctxBingke.font =
+"50px Arial";
+
+ctxBingke.fillText(
+  "Mean, Median, Modus",
+  40,
+  210
+);
+
+ctxBingke.font =
+"35px Arial";
+
+ctxBingke.fillText(
+  "Harga Bingke digunakan",
+  40,
+  280
+);
+
+ctxBingke.fillText(
+  "untuk tendensi sentral",
+  40,
+  330
+);
+
+ctxBingke.font =
+"50px Arial";
+
+ctxBingke.fillText(
+  "Mean, Median, Modus",
+  40,
+  210
+);
+
+const textTextureBingke =
+new THREE.CanvasTexture(
+  canvasBingke
+);
+
+const textPlaneBingke =
+new THREE.Mesh(
+
+  new THREE.PlaneGeometry(
+    1.8,
+    0.7
+  ),
+
+  new THREE.MeshBasicMaterial({
+    map:textTextureBingke,
+    transparent:true
+  })
+
+);
+
+textPlaneBingke.position.y =
+0.8;
+
+anchor1.group.add(
+  textPlaneBingke
+);
+const textureLemang =
+textureLoader.load(
+  "./images/budaya/lemang.jpg"
+);
+
+const planeLemang =
+new THREE.Mesh(
+  new THREE.PlaneGeometry(1,0.8),
+  new THREE.MeshBasicMaterial({
+    map:textureLemang
+  })
+);
+planeLemang.position.y =
+-0.4;
+
+anchor2.group.add(
+  planeLemang
+);
+const canvasLemang =
+document.createElement("canvas");
+canvasLemang.width = 1024;
+canvasLemang.height = 400;
+
+const ctxLemang =
+canvasLemang.getContext("2d");
+
+ctxLemang.fillStyle = "#1e293b";
+ctxLemang.fillRect(0,0,1024,256);
+
+ctxLemang.fillStyle = "#60a5fa";
+ctxLemang.font = "bold 40px Arial";
+
+ctxLemang.fillText(
+  "ETNOSTATS AR",
+  40,
+  50
+);
+
+ctxLemang.fillStyle = "#ffffff";
+
+ctxLemang.font =
+"bold 80px Arial";
+
+ctxLemang.fillText(
+  "LEMANG KALBAR",
+  40,
+  120
+);
+
+ctxLemang.font =
+"50px Arial";
+
+ctxLemang.fillText(
+  "ANOVA 1 JALAN",
+  40,
+  210
+);
+
+ctxLemang.font =
+"35px Arial";
+
+ctxLemang.fillText(
+  "Ketahanan Lemang dari",
+  40,
+  280
+);
+
+ctxLemang.fillText(
+  "berbagai daerah Kalbar",
+  40,
+  330
+);
+
+ctxLemang.font =
+"50px Arial";
+
+ctxLemang.fillText(
+  "ANOVA 1 JALAN",
+  40,
+  210
+);
+
+const textTextureLemang =
+new THREE.CanvasTexture(
+  canvasLemang
+);
+
+const textPlaneLemang =
+new THREE.Mesh(
+
+  new THREE.PlaneGeometry(
+    1.8,
+    0.7
+  ),
+
+  new THREE.MeshBasicMaterial({
+    map:textTextureLemang,
+    transparent:true
+  })
+
+);
+
+textPlaneLemang.position.y =
+0.8;
+
+anchor2.group.add(
+  textPlaneLemang
+);
+
+const textureLempok =
+textureLoader.load(
+  "./images/budaya/lempok.jpg"
+);
+
+const planeLempok =
+new THREE.Mesh(
+  new THREE.PlaneGeometry(1,0.8),
+  new THREE.MeshBasicMaterial({
+    map:textureLempok
+  })
+);
+planeLempok.position.y =
+-0.4;
+
+anchor3.group.add(
+  planeLempok
+);
+const canvasLempok =
+document.createElement("canvas");
+canvasLempok.width = 1024;
+canvasLempok.height = 400;
+
+const ctxLempok =
+canvasLempok.getContext("2d");
+
+ctxLempok.fillStyle = "#1e293b";
+ctxLempok.fillRect(0,0,1024,256);
+
+ctxLempok.fillStyle = "#60a5fa";
+ctxLempok.font = "bold 40px Arial";
+
+ctxLempok.fillText(
+  "ETNOSTATS AR",
+  40,
+  50
+);
+
+ctxLempok.fillStyle = "#ffffff";
+
+ctxLempok.font =
+"bold 80px Arial";
+
+ctxLempok.fillText(
+  "LEMPOK DAYAK",
+  40,
+  120
+);
+
+ctxLempok.font =
+"50px Arial";
+
+ctxLempok.fillText(
+  "SCHEFFE TEST",
+  40,
+  210
+);
+
+ctxLempok.font =
+"35px Arial";
+
+ctxLempok.fillText(
+  "Perbandingan kualitas",
+  40,
+  280
+);
+
+ctxLempok.fillText(
+  "antar kelompok lempok",
+  40,
+  330
+);
+
+ctxLempok.font =
+"50px Arial";
+
+const textTextureLempok =
+new THREE.CanvasTexture(
+  canvasLempok
+);
+
+const textPlaneLempok =
+new THREE.Mesh(
+
+  new THREE.PlaneGeometry(
+    1.8,
+    0.7
+  ),
+
+  new THREE.MeshBasicMaterial({
+    map:textTextureLempok,
+    transparent:true
+  })
+
+);
+
+textPlaneLempok.position.y =
+0.8;
+
+anchor3.group.add(
+  textPlaneLempok
+);
+
+const textureManik =
+textureLoader.load(
+  "./images/budaya/manik.jpg"
+);
+
+const planeManik =
+new THREE.Mesh(
+  new THREE.PlaneGeometry(1,0.8),
+  new THREE.MeshBasicMaterial({
+    map:textureManik
+  })
+);
+planeManik.position.y =
+-0.4;
+
+anchor4.group.add(
+  planeManik
+);
+const canvasManik =
+document.createElement("canvas");
+canvasManik.width = 1024;
+canvasManik.height = 400;
+
+const ctxManik =
+canvasManik.getContext("2d");
+
+ctxManik.fillStyle = "#1e293b";
+ctxManik.fillRect(0,0,1024,256);
+
+ctxManik.fillStyle = "#60a5fa";
+ctxManik.font = "bold 40px Arial";
+
+ctxManik.fillText(
+  "ETNOSTATS AR",
+  40,
+  50
+);
+
+ctxManik.fillStyle = "#ffffff";
+
+ctxManik.font =
+"bold 80px Arial";
+
+ctxManik.fillText(
+  "MANIK DAYAK",
+  40,
+  120
+);
+
+ctxManik.font =
+"50px Arial";
+
+ctxManik.fillText(
+  "PELUANG",
+  40,
+  210
+);
+
+ctxManik.font =
+"35px Arial";
+
+ctxManik.fillText(
+  "Warna manik digunakan",
+  40,
+  280
+);
+
+ctxManik.fillText(
+  "untuk konsep peluang",
+  40,
+  330
+);
+
+ctxManik.font =
+"50px Arial";
+
+const textTextureManik =
+new THREE.CanvasTexture(
+  canvasManik
+);
+
+const textPlaneManik =
+new THREE.Mesh(
+
+  new THREE.PlaneGeometry(
+    1.8,
+    0.7
+  ),
+
+  new THREE.MeshBasicMaterial({
+    map:textTextureManik,
+    transparent:true
+  })
+
+);
+
+textPlaneManik.position.y =
+0.8;
+
+anchor4.group.add(
+  textPlaneManik
+);
+
+const textureSape =
+textureLoader.load(
+  "./images/musik/sape.jpg"
+);
+
+const planeSape =
+new THREE.Mesh(
+  new THREE.PlaneGeometry(1,0.8),
+  new THREE.MeshBasicMaterial({
+    map:textureSape
+  })
+);
+planeSape.position.y =
+-0.4;
+
+anchor5.group.add(
+  planeSape
+);
+const canvasSape =
+document.createElement("canvas");
+canvasSape.width = 1024;
+canvasSape.height = 400;
+
+const ctxSape =
+canvasSape.getContext("2d");
+
+ctxSape.fillStyle = "#1e293b";
+ctxSape.fillRect(0,0,1024,256);
+
+ctxSape.fillStyle = "#60a5fa";
+ctxSape.font = "bold 40px Arial";
+
+ctxSape.fillText(
+  "ETNOSTATS AR",
+  40,
+  50
+);
+
+ctxSape.fillStyle = "#ffffff";
+
+ctxSape.font =
+"bold 80px Arial";
+
+ctxSape.fillText(
+  "ALAT MUSIK SAPE",
+  40,
+  120
+);
+
+ctxSape.font =
+"50px Arial";
+
+ctxSape.fillText(
+  "KORELASI",
+  40,
+  210
+);
+
+ctxSape.font =
+"35px Arial";
+
+ctxSape.fillText(
+  "Hubungan latihan dan",
+  40,
+  280
+);
+
+ctxSape.fillText(
+  "kemampuan bermain",
+  40,
+  330
+);
+
+ctxSape.font =
+"50px Arial";
+
+const textTextureSape =
+new THREE.CanvasTexture(
+  canvasSape
+);
+
+const textPlaneSape =
+new THREE.Mesh(
+
+  new THREE.PlaneGeometry(
+    1.8,
+    0.7
+  ),
+
+  new THREE.MeshBasicMaterial({
+    map:textTextureSape,
+    transparent:true
+  })
+
+);
+
+textPlaneSape.position.y =
+0.8;
+
+anchor5.group.add(
+  textPlaneSape
+);
+
+const textureTenun =
+textureLoader.load(
+  "./images/tenun/tenun.jpg"
+);
+
+const planeTenun =
+new THREE.Mesh(
+  new THREE.PlaneGeometry(1,0.8),
+  new THREE.MeshBasicMaterial({
+    map:textureTenun
+  })
+);
+
+planeTenun.position.y =
+-0.4;
+
+anchor6.group.add(
+  planeTenun
+);
+const canvasTenun =
+document.createElement("canvas");
+canvasTenun.width = 1024;
+canvasTenun.height = 400;
+
+const ctxTenun =
+canvasTenun.getContext("2d");
+
+ctxTenun.fillStyle = "#1e293b";
+ctxTenun.fillRect(0,0,1024,256);
+
+ctxTenun.fillStyle = "#60a5fa";
+ctxTenun.font = "bold 40px Arial";
+
+ctxTenun.fillText(
+  "ETNOSTATS AR",
+  40,
+  50
+);
+
+ctxTenun.fillStyle = "#ffffff";
+
+ctxTenun.font =
+"bold 80px Arial";
+
+ctxTenun.fillText(
+  "TENUN KALBAR",
+  40,
+  120
+);
+
+ctxTenun.font =
+"50px Arial";
+
+ctxTenun.fillText(
+  "REGRESI LINEAR",
+  40,
+  210
+);
+
+ctxTenun.font =
+"35px Arial";
+
+ctxTenun.fillText(
+  "Motif dan produksi",
+  40,
+  280
+);
+
+ctxTenun.fillText(
+  "dapat dianalisis regresi",
+  40,
+  330
+);
+
+ctxTenun.font =
+"50px Arial";
+
+const textTextureTenun =
+new THREE.CanvasTexture(
+  canvasTenun
+);
+
+const textPlaneTenun =
+new THREE.Mesh(
+
+  new THREE.PlaneGeometry(
+    1.8,
+    0.7
+  ),
+
+  new THREE.MeshBasicMaterial({
+    map:textTextureTenun,
+    transparent:true
+  })
+
+);
+
+textPlaneTenun.position.y =
+0.8;
+
+anchor6.group.add(
+  textPlaneTenun
+);
+
+
+const start = async()=>{
+
+  await mindarThree.start();
+
+  renderer.setAnimationLoop(()=>{
+
+  textPlaneBidai.position.y =
+0.8 +
+Math.sin(
+  Date.now()*0.002
+)*0.03;
+
+  renderer.render(
+    scene,
+    camera
+  );
+
+});
+
+};
+
+start();
+
+</script>
+
+</body>
+</html>

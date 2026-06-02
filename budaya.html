@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ETNOSTATS-AR | Eksplorasi Budaya Kalimantan</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:Arial, sans-serif;
+      background:linear-gradient(135deg,#0f172a,#1e293b,#0f172a);
+      color:white;
+      overflow-x:hidden;
+    }
+
+    .culture-container{
+      width:100%;
+      min-height:100vh;
+      padding:50px 20px;
+      text-align:center;
+    }
+
+    .culture-title{
+      font-size:50px;
+      color:#facc15;
+      margin-bottom:15px;
+      animation:fadeDown 1s ease;
+    }
+
+    .culture-subtitle{
+      max-width:900px;
+      margin:auto;
+      color:#cbd5e1;
+      line-height:1.8;
+      margin-bottom:40px;
+      animation:fadeUp 1.2s ease;
+    }
+
+    .search-box{
+      width:100%;
+      max-width:500px;
+      padding:15px;
+      border:none;
+      border-radius:15px;
+      font-size:16px;
+      outline:none;
+      margin-bottom:50px;
+      background:white;
+      color:black;
+    }
+
+    .culture-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:30px;
+    }
+
+    .culture-card{
+      background:rgba(255,255,255,0.08);
+      border-radius:20px;
+      overflow:hidden;
+      transition:0.4s;
+      cursor:pointer;
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,0.1);
+    }
+
+    .culture-card:hover{
+      transform:translateY(-10px) scale(1.03);
+      box-shadow:0 15px 40px rgba(0,0,0,0.4);
+    }
+
+    .culture-card img{
+      width:100%;
+      height:230px;
+      object-fit:cover;
+    }
+
+    .culture-card h2{
+      padding:20px;
+      font-size:24px;
+      color:#f8fafc;
+    }
+
+    .culture-btn{
+      margin-top:50px;
+      padding:15px 30px;
+      border:none;
+      border-radius:15px;
+      background:#facc15;
+      color:black;
+      font-weight:bold;
+      font-size:17px;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .culture-btn:hover{
+      transform:scale(1.05);
+    }
+
+    /* POPUP */
+
+    .popup{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.85);
+      display:none;
+      justify-content:center;
+      align-items:center;
+      padding:20px;
+      z-index:999;
+    }
+
+    .popup-content{
+      background:#1e293b;
+      width:95%;
+      max-width:950px;
+      max-height:95vh;
+      overflow-y:auto;
+      border-radius:25px;
+      position:relative;
+      animation:popupShow 0.4s ease;
+    }
+
+    @keyframes popupShow{
+      from{
+        transform:scale(0.7);
+        opacity:0;
+      }
+      to{
+        transform:scale(1);
+        opacity:1;
+      }
+    }
+
+    .popup img{
+      width:100%;
+      height:350px;
+      object-fit:cover;
+    }
+
+    .popup-body{
+      padding:35px;
+      text-align:left;
+    }
+
+    .popup-body h1{
+      color:#facc15;
+      margin-bottom:25px;
+      font-size:35px;
+    }
+
+    .popup-section{
+      margin-bottom:25px;
+      background:rgba(255,255,255,0.05);
+      padding:25px;
+      border-radius:15px;
+      border-left:5px solid #38bdf8;
+    }
+
+    .popup-section h3{
+      margin-bottom:15px;
+      color:#38bdf8;
+    }
+
+    .popup-section p{
+      line-height:1.9;
+      color:#e2e8f0;
+      font-size:16px;
+    }
+
+    .math-box{
+      background:rgba(250,204,21,0.12);
+      border-left:5px solid #facc15;
+      padding:18px;
+      border-radius:10px;
+      margin-top:20px;
+      color:#f8fafc;
+      line-height:1.8;
+    }
+
+    .close-btn{
+      position:absolute;
+      top:15px;
+      right:20px;
+      font-size:32px;
+      cursor:pointer;
+      color:white;
+      z-index:1000;
+    }
+
+    @keyframes fadeDown{
+      from{
+        opacity:0;
+        transform:translateY(-40px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    @keyframes fadeUp{
+      from{
+        opacity:0;
+        transform:translateY(40px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    @media(max-width:768px){
+
+      .culture-title{
+        font-size:34px;
+      }
+
+      .popup img{
+        height:220px;
+      }
+
+      .popup-body h1{
+        font-size:28px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div class="culture-container">
+
+    <h1 class="culture-title">
+      🌏 ETNOSTATS-AR
+    </h1>
+
+    <p class="culture-subtitle">
+      Media pembelajaran statistika berbasis budaya lokal Kalimantan Barat
+      menggunakan teknologi Augmented Reality (AR). Sistem ini menghubungkan
+      budaya Melayu dan Dayak dengan konsep statistika, etnomatematika,
+      visualisasi data, dan pembelajaran interaktif modern.
+    </p>
+
+    <!-- SEARCH -->
+    <input
+      type="text"
+      id="searchInput"
+      class="search-box"
+      placeholder="Cari budaya atau materi statistika..."
+    >
+
+    <!-- GRID -->
+    <div class="culture-grid" id="cultureGrid">
+
+      <!-- TENUN -->
+      <div class="culture-card"
+      onclick="openPopup(
+      '🧵 Tenun Sambas',
+      'images/tenun.jpg',
+      `
+      <div class='popup-section'>
+
+        <h3>📖 Penjelasan Budaya</h3>
+
+        <p>
+        Tenun Sambas merupakan warisan budaya Melayu Kalimantan Barat
+        yang memiliki motif geometris khas dan filosofi budaya.
+        Motif kain dibuat menggunakan teknik tradisional dengan pola berulang.
+        </p>
+
+      </div>
+
+      <div class='popup-section'>
+
+        <h3>🧮 Hubungan dengan Etnomatematika</h3>
+
+        <p>
+        Motif Tenun Sambas mengandung konsep matematika seperti:
+        simetri, transformasi geometri, pola bilangan,
+        translasi, refleksi, dan perbandingan ukuran.
+        </p>
+
+        <div class='math-box'>
+
+        ✔ Simetri lipat dan simetri putar
+        <br>
+        ✔ Pola pengulangan motif
+        <br>
+        ✔ Rasio ukuran motif kain
+        <br>
+        ✔ Bangun datar geometris
+
+        </div>
+
+      </div>
+
+      <div class='popup-section'>
+
+        <h3>📊 Hubungan dengan ETNOSTATS-AR</h3>
+
+        <p>
+        Pada ETNOSTATS-AR, motif Tenun Sambas dipindai menggunakan kamera.
+        Sistem kemudian menampilkan histogram warna,
+        diagram lingkaran, dan grafik frekuensi motif dalam bentuk AR realtime.
+        </p>
+
+        <div class='math-box'>
+
+        Contoh Data:
+        <br><br>
+
+        Motif A = 10
+        <br>
+        Motif B = 15
+        <br>
+        Motif C = 5
+
+        <br><br>
+
+        Mean:
+        <br>
+        (10 + 15 + 5) / 3 = 10
+
+        </div>
+
+      </div>
+
+      <div class='popup-section'>
+
+        <h3>🚀 Visualisasi AR</h3>
+
+        <p>
+        Grafik batang 3D dan pie chart muncul di atas kain tenun
+        menggunakan teknologi augmented reality.
+        </p>
+
+      </div>
+      `
+      )">
+
+        <img src="images/tenun.jpg">
+
+        <h2>Tenun Sambas</h2>
+
+      </div>
+
+      <!-- SAPE -->
+      <div class="culture-card"
+      onclick="openPopup(
+      '🎵 Sape Dayak',
+      'images/sape.jpg',
+      `
+      <div class='popup-section'>
+
+        <h3>📖 Penjelasan Budaya</h3>
+
+        <p>
+        Sape adalah alat musik tradisional suku Dayak
+        yang dimainkan dengan cara dipetik.
+        Digunakan dalam upacara adat dan hiburan budaya.
+        </p>
+
+      </div>
+
+      <div class='popup-section'>
+
+        <h3>🧮 Hubungan dengan Etnomatematika</h3>
+
+        <p>
+        Sape memiliki hubungan dengan konsep matematika seperti:
+        frekuensi bunyi, pola irama, pengukuran panjang senar,
+        dan pola bilangan nada musik.
+        </p>
+
+        <div class='math-box'>
+
+        ✔ Frekuensi nada
+        <br>
+        ✔ Rasio panjang senar
+        <br>
+        ✔ Pola ketukan musik
+        <br>
+        ✔ Gelombang bunyi
+
+        </div>
+
+      </div>
+
+      <div class='popup-section'>
+
+        <h3>📊 Hubungan dengan ETNOSTATS-AR</h3>
+
+        <p>
+        ETNOSTATS-AR memvisualisasikan distribusi nada musik
+        dalam bentuk histogram dan kurva normal realtime.
+        </p>
+
+        <div class='math-box'>
+
+        Frekuensi Nada:
+        <br><br>
+
+        Nada Tinggi = 12
+        <br>
+        Nada Sedang = 8
+        <br>
+        Nada Rendah = 5
+
+        </div>
+
+      </div>
+
+      <div class='popup-section'>
+
+        <h3>🚀 Visualisasi AR</h3>
+
+        <p>
+        Saat alat musik dipindai,
+        muncul grafik distribusi frekuensi nada dan animasi gelombang bunyi 3D.
+        </p>
+
+      </div>
+      `
+      )">
+
+        <img src="images/sape.jpg">
+
+        <h2>Sape Dayak</h2>
+
+      </div>
+
+      <!-- GOTONG -->
+      <div class="culture-card"
+      onclick="openPopup(
+      '🤝 Gotong Royong',
+      'images/gotong-royong.jpg',
+      `
+      <div class='popup-section'>
+
+        <h3>📖 Penjelasan Budaya</h3>
+
+        <p>
+        Gotong royong adalah budaya kerja sama masyarakat Melayu dan Dayak
+        yang mencerminkan solidaritas sosial.
+        </p>
+
+      </div>
+
+      <div class='popup-section'>
+
+        <h3>🧮 Hubungan dengan Etnomatematika</h3>
+
+        <p>
+        Aktivitas gotong royong dapat dikaitkan dengan statistika sosial,
+        pengumpulan data, diagram batang,
+        rata-rata, median, dan variansi.
+        </p>
+
+        <div class='math-box'>
+
+        ✔ Mean jumlah warga
+        <br>
+        ✔ Variansi kehadiran
+        <br>
+        ✔ Diagram batang partisipasi
+        <br>
+        ✔ Analisis data sosial
+
+        </div>
+
+      </div>
+
+      <div class='popup-section'>
+
+        <h3>📊 Hubungan dengan ETNOSTATS-AR</h3>
+
+        <p>
+        Sistem ETNOSTATS-AR menampilkan data partisipasi masyarakat
+        dalam bentuk heatmap dan floating data visualization.
+        </p>
+
+        <div class='math-box'>
+
+        Data Kehadiran:
+        <br><br>
+
+        20, 15, 25, 30, 10
+
+        <br><br>
+
+        Mean:
+        <br>
+        20
+
+        </div>
+
+      </div>
+
+      <div class='popup-section'>
+
+        <h3>🚀 Visualisasi AR</h3>
+
+        <p>
+        Data warga muncul sebagai titik 3D berwarna
+        dengan animasi sebaran data realtime.
+        </p>
+
+      </div>
+      `
+      )">
+
+        <img src="images/gotong-royong.jpg">
+
+        <h2>Gotong Royong</h2>
+
+      </div>
+
+      <!-- DAYAK -->
+      <div class="culture-card"
+      onclick="openPopup(
+      '🌏 Budaya Melayu & Dayak',
+      'images/budaya-dayak-melayu.jpg',
+      `
+      <div class='popup-section'>
+
+        <h3>📖 Penjelasan Budaya</h3>
+
+        <p>
+        Budaya Melayu dan Dayak merupakan identitas utama Kalimantan Barat
+        yang kaya akan seni, rumah adat, tarian,
+        kuliner, dan tradisi lokal.
+        </p>
+
+      </div>
+
+      <div class='popup-section'>
+
+        <h3>🧮 Hubungan dengan Etnomatematika</h3>
+
+        <p>
+        Rumah adat dan ukiran budaya mengandung konsep bangun ruang,
+        simetri, pola geometris, pengukuran, dan statistika budaya.
+        </p>
+
+        <div class='math-box'>
+
+        ✔ Balok dan prisma pada rumah adat
+        <br>
+        ✔ Simetri ukiran budaya
+        <br>
+        ✔ Pola geometris
+        <br>
+        ✔ Statistik budaya lokal
+
+        </div>
+
+      </div>
+
+      <div class='popup-section'>
+
+        <h3>📊 Hubungan dengan ETNOSTATS-AR</h3>
+
+        <p>
+        ETNOSTATS-AR membandingkan data budaya Melayu dan Dayak
+        menggunakan scatterplot, korelasi,
+        dan visualisasi distribusi statistik realtime.
+        </p>
+
+        <div class='math-box'>
+
+        Contoh:
+        <br><br>
+
+        Melayu = 40
+        <br>
+        Dayak = 35
+
+        <br><br>
+
+        Korelasi budaya divisualisasikan dalam grafik AR 3D.
+
+        </div>
+
+      </div>
+
+      <div class='popup-section'>
+
+        <h3>🚀 Visualisasi AR</h3>
+
+        <p>
+        Scatterplot 3D dan dashboard statistik hologram
+        muncul saat objek budaya dipindai.
+        </p>
+
+      </div>
+      `
+      )">
+
+        <img src="images/budaya-dayak-melayu.jpg">
+
+        <h2>Budaya Melayu & Dayak</h2>
+
+      </div>
+
+    </div>
+
+    <!-- BUTTON -->
+    <a href="index.html">
+
+      <button class="culture-btn">
+
+        ⬅ Kembali ke Simulator
+
+      </button>
+
+    </a>
+
+  </div>
+
+  <!-- POPUP -->
+  <div class="popup" id="popup">
+
+    <div class="popup-content">
+
+      <span class="close-btn" onclick="closePopup()">
+        ✖
+      </span>
+
+      <img id="popupImg">
+
+      <div class="popup-body">
+
+        <h1 id="popupTitle"></h1>
+
+        <div id="popupText"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    // OPEN POPUP
+    function openPopup(title,image,text){
+
+      document.getElementById("popup").style.display="flex";
+
+      document.getElementById("popupTitle").innerHTML=title;
+
+      document.getElementById("popupImg").src=image;
+
+      document.getElementById("popupText").innerHTML=text;
+
+    }
+
+    // CLOSE POPUP
+    function closePopup(){
+
+      document.getElementById("popup").style.display="none";
+
+    }
+
+    // CLICK OUTSIDE
+    window.onclick=function(event){
+
+      let popup=document.getElementById("popup");
+
+      if(event.target==popup){
+
+        popup.style.display="none";
+
+      }
+
+    }
+
+    // SEARCH
+    const searchInput=document.getElementById("searchInput");
+
+    searchInput.addEventListener("keyup",function(){
+
+      let filter=searchInput.value.toLowerCase();
+
+      let cards=document.querySelectorAll(".culture-card");
+
+      cards.forEach(card=>{
+
+        let title=card.innerText.toLowerCase();
+
+        if(title.includes(filter)){
+
+          card.style.display="block";
+
+        }else{
+
+          card.style.display="none";
+
+        }
+
+      });
+
+    });
+
+  </script>
+
+</body>
